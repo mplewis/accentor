@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-default" onclick="mpdPlay();"><i class="icon-play"></i></button>
+            <button class="btn btn-default" onclick="mpdPause();"><i class="icon-pause"></i></button>
+            <button class="btn btn-default" onclick="mpdClear();"><i class="icon-remove"></i></button>
+            <button class="btn btn-default" onclick="mpdRefresh();"><i class="icon-refresh"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Bump</th>
+                        <th>Title</th>
+                        <th>Time</th>
+                        <th>Artist</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="tracks">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function secondsToMMSS(seconds) {
+        var minutes = 0;
+        while (seconds >= 60) {
+            minutes += 1;
+            seconds -= 60;
+        }
+        if (seconds < 10)
+            seconds = '0' + seconds;
+        return (minutes + ':' + seconds);
+    }
+
+    function bumpClicked() {
+        var pos = $(this).parent().data('pos');
+        $.post('/bump', {pos: pos}).done(mpdRefresh);
+    }
+
+    function removeClicked() {
+        var pos = $(this).parent().data('pos');
+        $.post('/remove', {pos: pos}).done(mpdRefresh);
+    }
+    
+    function mpdPlay() {
+        $.post('/play');
+    }
+
+    function mpdPause() {
+        $.post('/pause');
+    }
+
+    function mpdStop() {
+        $.post('/stop');
+    }
+
+    function mpdClear() {
+        $.post('/clear');
+    }
+
+    function mpdRefresh() {
+        var numPreRefreshRows = $('#tracks tr').length;
+        $.post('/list').done(function(data) {
+            if (!data.error) {
+                var playlistItems = data.result;
+                var itemCount = 0;
+                playlistItems.forEach(function(item) {
+                    var row = $('<tr>');
+                    row.data('file', item.file).data('pos', itemCount);
+                    if (itemCount < 2)
+                        var bumpBtn = $('<td><button class="btn btn-info btn-xs mpd-bump" disabled>Bump <i class="icon-level-up"></i></button></td>');
+                    else
+                        var bumpBtn = $('<td><button class="btn btn-info btn-xs mpd-bump">Bump <i class="icon-level-up"></i></button></td>');
+                    row.append(bumpBtn);
+                    bumpBtn.click(bumpClicked);
+                    row.append($('<td>').text(item.Title));
+                    row.append($('<td>').text(secondsToMMSS(item.Time)));
+                    row.append($('<td>').text(item.Artist));
+                    var removeBtn = $('<td><button class="btn btn-danger btn-xs">Remove <i class="icon-trash"></i></button></td>');
+                    row.append(removeBtn);
+                    removeBtn.click(removeClicked);
+                    $('#tracks').append(row);
+                    itemCount++;
+                });
+                $($('#tracks tr').slice(0, numPreRefreshRows)).remove();
+            } else {
+                console.log(data.result);
+            }
+        });
+    }
+
+    mpdRefresh();
+</script>

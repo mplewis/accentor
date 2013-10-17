@@ -51,6 +51,16 @@ function mpdNext() {
   $.post('/next');
 }
 
+function mpdRemoveZero() {
+  $.post('/remove', {pos: 0}).done(function(data) {
+    if (data.error)
+      console.log('Error:', data.result);
+    else {
+      mpdPlay();
+    };
+  });
+}
+
 function mpdClear() {
   $.post('/clear');
 }

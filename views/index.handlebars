@@ -19,7 +19,9 @@
             <button class="btn btn-default btn-lg" onclick="mpdClear();"><i class="icon-remove"></i> Clear</button>
             <button class="btn btn-default btn-lg" onclick="mpdPlayPause();"><i class="icon-play"></i> <strong>/</strong> <i class="icon-pause"></i></button>
             <button class="btn btn-default btn-lg" onclick="mpdNext();"><i class="icon-fast-forward"></i></button>
-            <input class="form-control input-lg" type="text" placeholder="Search" style="display: inline-block; width: 400px;">
+            <form id="search-form" action="">
+                <input id="search-box" class="form-control input-lg" type="text" placeholder="Search">
+            </form>
         </div>
     </div>
     <div class="row">

@@ -10,6 +10,11 @@ function continueSetup() {
   var mpd = require('mpd');
   var cmd = mpd.cmd;
 
+  // Turn consume on by default
+  client.sendCommand(cmd('consume', [1]), function(err, mpdRes) {
+    if (err) throw err;
+  });
+  
   var routesExt = require('./routes');
 
   var express = require('express');

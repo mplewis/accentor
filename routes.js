@@ -39,7 +39,7 @@ var appMap = {
       });
     }
   },
-  '/pause': {
+  '/playpause': {
     post: function(req, res) {
       client.sendCommand(cmd('pause', []), function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);

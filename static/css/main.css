@@ -1,6 +1,11 @@
 td {
     vertical-align: middle !important;
+}
+#tracks td {
     font-size: 18px;
+}
+#results td {
+    font-size: 14px;
 }
 div.status, div.buttons {
     text-align: center;

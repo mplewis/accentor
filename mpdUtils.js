@@ -15,7 +15,7 @@ function parseMpdResToKVPairs(mpdRes) {
   return pairs;
 }
 
-function parseMpdSearchResults(mpdRes) {
+function parseMpdItemList(mpdRes) {
   var resetKey = 'file';
   var usefulKeys = ['file', 'Title', 'Artist', 'Album', 'Time'];
   var firstResult = true;
@@ -41,5 +41,5 @@ function parseMpdSearchResults(mpdRes) {
 
 module.exports = {
   parseMpdResToKVPairs: parseMpdResToKVPairs,
-  parseMpdSearchResults: parseMpdSearchResults
+  parseMpdItemList: parseMpdItemList
 };

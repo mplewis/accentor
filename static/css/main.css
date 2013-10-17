@@ -24,3 +24,7 @@ div.buttons {
     display: inline-block;
     width: 400px;
 }
+#osx-container {
+    overflow: auto;
+    max-height: 80%;
+}

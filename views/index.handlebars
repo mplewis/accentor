@@ -58,16 +58,12 @@
 
     function bumpClicked() {
         var pos = $(this).parent().data('pos');
-        $.post('/bump', {pos: pos}).done(mpdRefresh);
+        $.post('/bump', {pos: pos});
     }
 
     function removeClicked() {
         var pos = $(this).parent().data('pos');
-        $.post('/remove', {pos: pos}).done(mpdRefresh);
-    }
-    
-    function mpdPlay() {
-        $.post('/play');
+        $.post('/remove', {pos: pos});
     }
 
     function mpdPlayPause() {

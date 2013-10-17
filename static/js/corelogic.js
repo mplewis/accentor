@@ -34,8 +34,8 @@ function removeClicked() {
   $.post('/remove', {pos: pos});
 }
 
-function mpdPlayPause() {
-  $.post('/playpause');
+function mpdPlay() {
+  $.post('/play');
 }
 
 function mpdStop() {

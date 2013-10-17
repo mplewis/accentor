@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/modal-osx.css">
 
 <div class="container">
     <div class="row">
@@ -38,7 +39,29 @@
             </table>
         </div>
     </div>
+    <div id="osx-modal-content">
+        <div id="osx-modal-title">Search Results</div>
+        <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+        <div id="osx-modal-data">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Time</th>
+                        <th>Artist</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="results">
+                    
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/corelogic.js"></script>
+<script src="/js/jquery.simplemodal.js"></script>
+<script src="/js/modal-osx.js"></script>

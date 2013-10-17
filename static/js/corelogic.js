@@ -100,3 +100,32 @@ function mpdRefreshPlaylist() {
     }
   });
 }
+
+function mpdSearch(query) {
+  $('#results').empty();
+  $.post('/search', {scope: 'any', query: query}).done(function(data) {
+    if (!data.error) {
+      var searchResults = data.result;
+      searchResults.forEach(function(result) {
+          var row = $('<tr>');
+          row.data('file', result.file)
+          row.append($('<td>').text(result.Title));
+          row.append($('<td>').text(secondsToMMSS(result.Time)));
+          row.append($('<td>').text(result.Artist));
+          var queueBtn = $('<td><button class="btn btn-success btn-sm"><i class="icon-plus"></i></button></td>');
+          queueBtn.click(addClicked);
+          row.append(queueBtn);
+          $('#results').append(row);
+      });
+      $('#hidden-modal-trigger').click();
+    } else {
+      console.log('Error:', data.result);
+    }
+  });
+}
+
+$('#search-form').submit(function(){
+  var query = $('#search-box').val();
+  mpdSearch(query);
+  return false;
+});

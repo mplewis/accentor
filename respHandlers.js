@@ -1,3 +1,7 @@
+var mpd = require('mpd');
+var cmd = mpd.cmd;
+var mpdClient = require('./mpdClient')();
+var client = mpdClient.client;
 var async = require('async');
 var mpdUtils = require('./mpdUtils');
 
@@ -70,14 +74,10 @@ function handlePlaylistMpdResponse(err, mpdRes, res) {
   }
 }
 
-module.exports = function(data) {
-  mpd = data.mpd;
-  cmd = mpd.cmd;
-  return {
-    sendAsJson: sendAsJson,
-    sendErr: sendErr,
-    handleGeneralMpdResponse: handleGeneralMpdResponse,
-    handleSearchMpdResponse: handleSearchMpdResponse,
-    handlePlaylistMpdResponse: handlePlaylistMpdResponse
-  };
+module.exports = {
+  sendAsJson: sendAsJson,
+  sendErr: sendErr,
+  handleGeneralMpdResponse: handleGeneralMpdResponse,
+  handleSearchMpdResponse: handleSearchMpdResponse,
+  handlePlaylistMpdResponse: handlePlaylistMpdResponse
 };

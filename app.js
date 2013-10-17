@@ -1,35 +1,27 @@
+var config, mpdClient;
+
 function startSetup() {
   config = require('./config');
-  mpd = require('mpd');
-
-  client = mpd.connect({
-    host: config.mpd.host,
-    port: config.mpd.port
-  });
-
-  client.on('ready', function() {
-    console.log('MPD ready.');
-    continueSetup(config, mpd);
-  });  
+  mpdClient = require('./mpdClient')({onReady: continueSetup});
 }
 
-function continueSetup(config, mpd) {
-  var routesExt = require('./routes')({mpd: mpd});
+function continueSetup() {
+  var client = mpdClient.client;
+  var mpd = require('mpd');
   var cmd = mpd.cmd;
 
-  client.on('system-player', function() {
-    client.sendCommand(cmd("status", []), function(err, msg) {
-      if (err) throw err;
-    });
-  });
+  var routesExt = require('./routes');
 
   var express = require('express');
   var exphbs = require('express3-handlebars');
-  var app = module.exports = express();
-  var http = require('http');
-  var server = http.createServer(app);
-  var io = require('socket.io').listen(server);
 
+  var http = require('http');
+  var app = express();
+  var server = http.createServer(app);
+
+  // static file serving
+  app.use(express.static(__dirname + '/static'));
+  
   // express3-handlebars
   app.engine('handlebars', exphbs({defaultLayout: 'base'}));
   app.set('view engine', 'handlebars');
@@ -42,14 +34,20 @@ function continueSetup(config, mpd) {
   app.map = routesExt.appMapFuncBuilder(app);
   app.map(routesExt.appMap);
 
-  // sockets
-  io.sockets.on('connection', function (socket) {
-     console.log('Connection established!');
-  });
-
   // server
-  app.listen(3000);
+  server.listen(3000);
   console.log('Listening on port 3000');
+  
+  // sockets
+  var io = require('socket.io').listen(server);
+  client.on('system-player', function() {
+    console.log('update_player');
+    io.sockets.emit('message', 'update_player');
+  });
+  client.on('system-playlist', function() {
+    console.log('update_playlist');
+    io.sockets.emit('message', 'update_playlist');
+  });
 }
 
 startSetup();

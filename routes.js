@@ -1,9 +1,10 @@
+var mpd = require('mpd');
+var cmd = mpd.cmd;
+var mpdClient = require('./mpdClient')();
+var client = mpdClient.client;
 var async = require('async');
 var config = require('./config');
-var respHandlers;
-
-var mpd;
-var cmd;
+var respHandlers = require('./respHandlers.js');
 
 var appMapFuncBuilder = function(app) {
   return function(a, route) {
@@ -104,12 +105,7 @@ var appMap = {
   }
 };
 
-module.exports = function(data) {
-  mpd = data.mpd;
-  cmd = mpd.cmd;
-  respHandlers = require('./respHandlers.js')({mpd: mpd});
-  return {
-    appMapFuncBuilder: appMapFuncBuilder,
-    appMap: appMap    
-  };
+module.exports = {
+  appMapFuncBuilder: appMapFuncBuilder,
+  appMap: appMap
 };

@@ -35,28 +35,28 @@ var appMap = {
   },
   '/play': {
     post: function(req, res) {
-      client.sendCommand(cmd('play', []), function(err, mpdRes) {
+      client.sendCommand('play', function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);
       });
     }
   },
   '/playpause': {
     post: function(req, res) {
-      client.sendCommand(cmd('pause', []), function(err, mpdRes) {
+      client.sendCommand('pause', function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);
       });
     }
   },
   '/stop': {
     post: function(req, res) {
-      client.sendCommand(cmd('stop', []), function(err, mpdRes) {
+      client.sendCommand('stop', function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);
       });
     }
   },
   '/next': {
     post: function(req, res) {
-      client.sendCommand(cmd('next', []), function(err, mpdRes) {
+      client.sendCommand('next', function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);
       });
     }
@@ -77,7 +77,7 @@ var appMap = {
   },
   '/clear': {
     post: function(req, res) {
-      client.sendCommand(cmd('clear', []), function(err, mpdRes) {
+      client.sendCommand('clear', function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);
       });
     }
@@ -98,7 +98,7 @@ var appMap = {
   },
   '/list': {
     post: function(req, res) {
-      client.sendCommand(cmd('playlist', []), function(err, mpdRes) {
+      client.sendCommand(cmd('playlistinfo', [-1]), function(err, mpdRes) {
         respHandlers.handleItemsMpdResponse(err, mpdRes, res);
       });
     }

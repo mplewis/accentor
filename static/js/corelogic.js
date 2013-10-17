@@ -29,6 +29,11 @@ function bumpClicked() {
   $.post('/bump', {pos: pos});
 }
 
+function addClicked() {
+  var file = $(this).parent().data('file');
+  $.post('/add', {file: file});
+}
+
 function removeClicked() {
   var pos = $(this).parent().data('pos');
   $.post('/remove', {pos: pos});

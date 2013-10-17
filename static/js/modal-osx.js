@@ -12,7 +12,7 @@ jQuery(function ($) {
 	var OSX = {
 		container: null,
 		init: function () {
-			$("button.modal-show").click(function (e) {
+			$("#hidden-modal-trigger").click(function (e) {
 				e.preventDefault();	
 
 				$("#osx-modal-content").modal({

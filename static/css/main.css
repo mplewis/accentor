@@ -1,0 +1,14 @@
+td {
+    vertical-align: middle !important;
+    font-size: 18px;
+}
+div.status, div.buttons {
+    text-align: center;
+}
+div.status {
+    margin-top: 40px;
+}
+div.buttons {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}

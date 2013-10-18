@@ -98,7 +98,7 @@ function mpdRefreshStatus() {
       if (lastStatus.playlistlength == 0) {
         $('#btn-clear').attr('disabled', true).removeClass('btn-danger');
       } else {
-        $('#btn-clear').attr('disabled', false).addClass('btn-danger');
+        $('#btn-clear').attr('disabled', false).removeClass('btn-danger');
       }
     } else {
       console.log('Error:', data.result);

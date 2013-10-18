@@ -86,6 +86,17 @@ var appMap = {
       });
     }
   },
+  '/clearnum': {
+    post: function(req, res) {
+      async.times(req.body.num, function(num, done) {
+        client.sendCommand(cmd('delete', [0]), function(err, mpdRes) {
+          done(err, mpdRes);
+        });
+      }, function(err, mpdResArray) {
+        respHandlers.handleGeneralMpdResponse(err, mpdResArray, res);
+      });
+    }
+  },
   '/search': {
     post: function(req, res) {
       client.sendCommand(cmd('search', [req.body.scope, req.body.query]), function(err, mpdRes) {

@@ -28,9 +28,6 @@ var appMap = {
   '/': {
     get: function(req, res) {
       res.render('index');
-    },
-    post: function(req, res) {
-      sendAsJson({'result': 'Accentor is wired for sound.', 'error': false}, res);
     }
   },
   '/play': {

@@ -155,6 +155,7 @@ function mpdSearch(query) {
           $('#results').append(row);
       });
       $('#hidden-modal-trigger').click();
+      $('#search-box').removeClass('loading').val('');
     } else {
       console.log('Error:', data.result);
     }
@@ -162,7 +163,9 @@ function mpdSearch(query) {
 }
 
 $('#search-form').submit(function(){
+  var searchBox = $('#search-box');
   var query = $('#search-box').val();
+  searchBox.addClass('loading');
   mpdSearch(query);
   return false;
 });

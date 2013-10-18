@@ -24,6 +24,10 @@ div.buttons {
     display: inline-block;
     width: 400px;
 }
+#search-box.loading {
+    background:url('/img/loading-bars.gif') no-repeat right center;
+    background-size: 36px 36px;
+}
 #osx-container {
     overflow: auto;
     max-height: 80%;

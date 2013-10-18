@@ -27,6 +27,19 @@ function handleGeneralMpdResponse(err, mpdRes, res) {
   }
 }
 
+function handleKVPairsMpdResponse(err, mpdRes, res) {
+  if (err)
+    sendErr(err, res);
+  else {
+    var kvPairs = mpdUtils.parseMpdResToKVPairs(mpdRes);
+    var kvDict = {};
+    kvPairs.forEach(function(pair) {
+      kvDict[pair[0]] = pair[1];
+    });
+    sendAsJson({'result': kvDict, 'error': false}, res);
+  }
+}
+
 function handleItemsMpdResponse(err, mpdRes, res) {
   if (err)
     sendErr(err, res);
@@ -40,5 +53,6 @@ module.exports = {
   sendAsJson: sendAsJson,
   sendErr: sendErr,
   handleGeneralMpdResponse: handleGeneralMpdResponse,
-  handleItemsMpdResponse: handleItemsMpdResponse,
+  handleKVPairsMpdResponse: handleKVPairsMpdResponse,
+  handleItemsMpdResponse: handleItemsMpdResponse
 };

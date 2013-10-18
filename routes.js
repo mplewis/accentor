@@ -30,6 +30,13 @@ var appMap = {
       res.render('index');
     }
   },
+  '/status': {
+    get: function(req, res) {
+      client.sendCommand('status', function(err, mpdRes) {
+        respHandlers.handleKVPairsMpdResponse(err, mpdRes, res);
+      });
+    }
+  },
   '/play': {
     post: function(req, res) {
       client.sendCommand('play', function(err, mpdRes) {
@@ -80,7 +87,8 @@ var appMap = {
     }
   },
   '/search': {
-    get: function(req, res) {
+    post: function(req, res) {
+      console.log(req.body)
       client.sendCommand(cmd('search', [req.body.scope, req.body.query]), function(err, mpdRes) {
         respHandlers.handleItemsMpdResponse(err, mpdRes, res);
       });

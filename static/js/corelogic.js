@@ -35,7 +35,12 @@ function bumpClicked() {
 
 function addClicked() {
   var file = $(this).parent().data('file');
+  var loadingButton = '<button class="btn btn-sm" disabled><i class="icon-ellipsis-horizontal"></i></button>';
+  var okButton = '<button class="btn btn-primary btn-sm" disabled><i class="icon-ok"></i></button>';
+  $(this).html(loadingButton);
+  var btn = this;
   $.post('/add', {file: file}).done(function() {
+    $(btn).html(okButton);
     if (lastStatus.playlistlength == 0)
       mpdPlay();
   });
@@ -164,6 +169,7 @@ function mpdSearch(query) {
           $('#results').append(row);
       });
       $('#hidden-modal-trigger').click();
+      $('#search-box').removeClass('loading').val('');
     } else {
       console.log('Error:', data.result);
     }
@@ -171,7 +177,9 @@ function mpdSearch(query) {
 }
 
 $('#search-form').submit(function(){
+  var searchBox = $('#search-box');
   var query = $('#search-box').val();
+  searchBox.addClass('loading');
   mpdSearch(query);
   return false;
 });

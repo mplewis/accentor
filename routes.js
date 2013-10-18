@@ -40,7 +40,7 @@ var appMap = {
       });
     }
   },
-  '/playpause': {
+  '/pause': {
     post: function(req, res) {
       client.sendCommand('pause', function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);

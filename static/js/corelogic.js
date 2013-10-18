@@ -43,6 +43,10 @@ function mpdPlay() {
   $.post('/play');
 }
 
+function mpdPause() {
+  $.post('/pause');
+}
+
 function mpdStop() {
   $.post('/stop');
 }

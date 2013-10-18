@@ -90,6 +90,11 @@ function mpdRefreshStatus() {
         playButton.addClass('btn-default').removeClass('btn-success');
         pauseButton.removeClass('btn-default').addClass('btn-warning');
       }
+      if (lastStatus.playlistlength == 0) {
+        $('#btn-clear').attr('disabled', true).removeClass('btn-danger');
+      } else {
+        $('#btn-clear').attr('disabled', false).addClass('btn-danger');
+      }
     } else {
       console.log('Error:', data.result);
     }
@@ -169,4 +174,10 @@ $('#search-form').submit(function(){
   var query = $('#search-box').val();
   mpdSearch(query);
   return false;
+});
+
+$('#btn-clear').hover(function() {
+  $(this).addClass('btn-danger');
+}, function() {
+  $(this).removeClass('btn-danger');
 });

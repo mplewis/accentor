@@ -3,11 +3,15 @@ var socket = io.connect();
 socket.on('connect', function() {
   console.log('Connected to server.');
   mpdRefreshPlaylist();
+  mpdRefreshStatus();
 });
 socket.on('message', function(data) {
   console.log('Received request to update:', data);
-  if (data == 'update_playlist')
+  if (data == 'update_playlist') {
+    mpdRefreshStatus();
     mpdRefreshPlaylist();
+  } else if (data == 'update_player')
+    mpdRefreshStatus();
 });
 socket.on('disconnect', function() {
   console.log('Disconnected from server.');
@@ -31,7 +35,10 @@ function bumpClicked() {
 
 function addClicked() {
   var file = $(this).parent().data('file');
-  $.post('/add', {file: file});
+  $.post('/add', {file: file}).done(function() {
+    if (lastStatus.playlistlength == 0)
+      mpdPlay();
+  });
 }
 
 function removeClicked() {
@@ -67,6 +74,17 @@ function mpdRemoveZero() {
 
 function mpdClear() {
   $.post('/clear');
+}
+
+var lastStatus = null;
+function mpdRefreshStatus() {
+  $.get('/status').done(function(data) {
+    if (!data.error) {
+      lastStatus = data.result;
+    } else {
+      console.log('Error:', data.result);
+    }
+  });
 }
 
 var nonePlaying = '...';
@@ -117,7 +135,7 @@ function mpdRefreshPlaylist() {
 
 function mpdSearch(query) {
   $('#results').empty();
-  $.get('/search', {scope: 'any', query: query}).done(function(data) {
+  $.post('/search', {scope: 'any', query: query}).done(function(data) {
     if (!data.error) {
       var searchResults = data.result;
       searchResults.forEach(function(result) {

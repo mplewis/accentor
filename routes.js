@@ -88,7 +88,6 @@ var appMap = {
   },
   '/search': {
     post: function(req, res) {
-      console.log(req.body)
       client.sendCommand(cmd('search', [req.body.scope, req.body.query]), function(err, mpdRes) {
         respHandlers.handleItemsMpdResponse(err, mpdRes, res);
       });

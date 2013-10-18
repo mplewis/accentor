@@ -72,7 +72,7 @@ function mpdClear() {
 var nonePlaying = '...';
 function mpdRefreshPlaylist() {
   var numPreRefreshRows = $('#tracks tr').length;
-  $.post('/list').done(function(data) {
+  $.get('/list').done(function(data) {
     if (!data.error) {
       var playlistItems = data.result;
       var numPlaylistItems = playlistItems.length;
@@ -117,7 +117,7 @@ function mpdRefreshPlaylist() {
 
 function mpdSearch(query) {
   $('#results').empty();
-  $.post('/search', {scope: 'any', query: query}).done(function(data) {
+  $.get('/search', {scope: 'any', query: query}).done(function(data) {
     if (!data.error) {
       var searchResults = data.result;
       searchResults.forEach(function(result) {

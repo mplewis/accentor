@@ -80,7 +80,7 @@ var appMap = {
     }
   },
   '/search': {
-    post: function(req, res) {
+    get: function(req, res) {
       client.sendCommand(cmd('search', [req.body.scope, req.body.query]), function(err, mpdRes) {
         respHandlers.handleItemsMpdResponse(err, mpdRes, res);
       });
@@ -94,7 +94,7 @@ var appMap = {
     }
   },
   '/list': {
-    post: function(req, res) {
+    get: function(req, res) {
       client.sendCommand(cmd('playlistinfo', [-1]), function(err, mpdRes) {
         respHandlers.handleItemsMpdResponse(err, mpdRes, res);
       });

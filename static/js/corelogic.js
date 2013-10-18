@@ -81,6 +81,15 @@ function mpdRefreshStatus() {
   $.get('/status').done(function(data) {
     if (!data.error) {
       lastStatus = data.result;
+      var pauseButton = $('#btn-pause');
+      var playButton = $('#btn-play');
+      if (lastStatus.state == 'play') {
+        playButton.removeClass('btn-default').addClass('btn-success');
+        pauseButton.addClass('btn-default').removeClass('btn-warning');
+      } else {
+        playButton.addClass('btn-default').removeClass('btn-success');
+        pauseButton.removeClass('btn-default').addClass('btn-warning');
+      }
     } else {
       console.log('Error:', data.result);
     }

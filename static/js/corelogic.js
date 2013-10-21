@@ -189,3 +189,9 @@ $('#btn-clear').hover(function() {
 }, function() {
   $(this).removeClass('btn-danger');
 });
+
+$(".knob").knob({
+  release: function(val) {
+    $.post('/volume', {percent: val});
+  }
+});

@@ -86,6 +86,7 @@ function mpdRefreshStatus() {
   $.get('/status').done(function(data) {
     if (!data.error) {
       lastStatus = data.result;
+      $('#volume').val(lastStatus.volume).trigger('change');
       var pauseButton = $('#btn-pause');
       var playButton = $('#btn-play');
       if (lastStatus.state == 'play') {

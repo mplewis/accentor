@@ -2,14 +2,14 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12 status">
-            <h1>Search Results for {{scope}} "{{query}}"</h1>
+        <div class="col-md-12 title">
+            <h1>{{scope}} search results for "{{query}}"</h1>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <a class="btn btn-lg btn-primary">Return to Playlist</a>
+    <div class="col-md-12 buttons">
+        <a class="btn btn-lg btn-primary"><i class="icon-long-arrow-left"></i> Return to Playlist</a>
     </div>
 </div>
 <div class="row" style="margin-left: 30px; margin-right: 30px;">
@@ -19,26 +19,26 @@
                 <th>Title</th>
                 <th>Time</th>
                 <th>Artist</th>
+                <th>Album</th>
                 <th></th>
             </tr>
         </thead>
         <tbody id="results">
             {{#each results}}
             <tr>
-                {{#with result}}
                 <td>{{Title}}</td>
                 <td>{{TimeString}}</td>
                 <td>{{Artist}}</td>
-                <td>button.btn.btn-lg.btn-success</td>
-                {{/with}}
+                <td>{{Album}}</td>
+                <td><button class="btn btn-md btn-success"><i class="icon-plus"></i></button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <a class="btn btn-lg btn-primary">Return to Playlist</a>
+    <div class="col-md-12 buttons">
+        <a class="btn btn-lg btn-primary"><i class="icon-long-arrow-left"></i> Return to Playlist</a>
     </div>
 </div>
 

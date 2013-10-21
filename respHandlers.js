@@ -4,6 +4,7 @@ var mpdClient = require('./mpdClient')();
 var client = mpdClient.client;
 var async = require('async');
 var mpdUtils = require('./mpdUtils');
+var utils = require('./utils');
 
 var mpd;
 var cmd;
@@ -49,10 +50,24 @@ function handleItemsMpdResponse(err, mpdRes, res) {
   }
 }
 
+function renderSearchMpdResponse(err, mpdRes, res, scope, query) {
+  if (err)
+    sendErr(err, res);
+  else {
+    var resultSet = mpdUtils.parseMpdItemList(mpdRes);
+    resultSet.forEach(function(result) {
+      result.TimeString = utils.secondsToMMSS(result.Time);
+    });
+    console.log(resultSet);
+    res.render('search', {scope: scope, query: query, results: resultSet});
+  }
+}
+
 module.exports = {
   sendAsJson: sendAsJson,
   sendErr: sendErr,
   handleGeneralMpdResponse: handleGeneralMpdResponse,
   handleKVPairsMpdResponse: handleKVPairsMpdResponse,
-  handleItemsMpdResponse: handleItemsMpdResponse
+  handleItemsMpdResponse: handleItemsMpdResponse,
+  renderSearchMpdResponse: renderSearchMpdResponse
 };

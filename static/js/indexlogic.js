@@ -154,12 +154,10 @@ function mpdRefreshPlaylist() {
 }
 
 $('#search-form').submit(function(){
-  var searchScope = $('#search-scope');
   var searchBox = $('#search-box');
   searchBox.addClass('loading');
-  var scope = searchScope.val().toLowerCase();
   var query = searchBox.val().replace(' ', '+');
-  window.location = '/search/' + scope + '/' + query;
+  window.location = '/search/' + query;
   return false;
 });
 

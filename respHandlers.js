@@ -50,7 +50,7 @@ function handleItemsMpdResponse(err, mpdRes, res) {
   }
 }
 
-function renderSearchMpdResponse(err, mpdRes, res, scope, query) {
+function renderSearchMpdResponse(err, mpdRes, res, query) {
   if (err)
     sendErr(err, res);
   else {
@@ -59,7 +59,7 @@ function renderSearchMpdResponse(err, mpdRes, res, scope, query) {
       result.TimeString = utils.secondsToMMSS(result.Time);
     });
     console.log(resultSet);
-    res.render('search', {scope: scope, query: query, results: resultSet});
+    res.render('search', {query: query, results: resultSet});
   }
 }
 

@@ -93,13 +93,11 @@ var appMap = {
       });
     }
   },
-  '/search/:scope/:query': {
+  '/search/:query': {
     get: function(req, res) {
-      var scope = req.params.scope;
-      var scopeNice = scope.charAt(0).toUpperCase() + scope.slice(1);
       var query = req.params.query.replace('+', ' ');
-      client.sendCommand(cmd('search', [scope, query]), function(err, mpdRes) {
-        respHandlers.renderSearchMpdResponse(err, mpdRes, res, scopeNice, query);
+      client.sendCommand(cmd('search', ['any', query]), function(err, mpdRes) {
+        respHandlers.renderSearchMpdResponse(err, mpdRes, res, query);
       });
     }
   },

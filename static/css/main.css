@@ -33,5 +33,6 @@ div.buttons {
     max-height: 80%;
 }
 #volume-container {
+    display: none;
     margin-top: 20px;
 }

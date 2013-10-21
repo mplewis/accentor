@@ -199,3 +199,7 @@ $(".knob").knob({
     });
   }
 });
+
+function toggleVolume() {
+  $('#volume-container').slideToggle();
+}

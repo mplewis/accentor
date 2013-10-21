@@ -153,35 +153,13 @@ function mpdRefreshPlaylist() {
   });
 }
 
-function mpdSearch(query) {
-  $('#results').empty();
-  $.post('/search', {scope: 'any', query: query}).done(function(data) {
-    if (!data.error) {
-      var searchResults = data.result;
-      searchResults.forEach(function(result) {
-          var row = $('<tr>');
-          row.data('file', result.file)
-          row.append($('<td>').text(result.Title));
-          row.append($('<td>').text(secondsToMMSS(result.Time)));
-          row.append($('<td>').text(result.Artist));
-          var queueBtn = $('<td><button class="btn btn-success btn-sm"><i class="icon-plus"></i></button></td>');
-          queueBtn.click(addClicked);
-          row.append(queueBtn);
-          $('#results').append(row);
-      });
-      $('#hidden-modal-trigger').click();
-      $('#search-box').removeClass('loading').val('');
-    } else {
-      console.log('Error:', data.result);
-    }
-  });
-}
-
 $('#search-form').submit(function(){
+  var searchScope = $('#search-scope');
   var searchBox = $('#search-box');
-  var query = $('#search-box').val();
   searchBox.addClass('loading');
-  mpdSearch(query);
+  var scope = searchScope.val().toLowerCase();
+  var query = searchBox.val().replace(' ', '+');
+  window.location = '/search/' + scope + '/' + query;
   return false;
 });
 

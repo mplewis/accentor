@@ -4,21 +4,23 @@ td {
 #tracks td {
     font-size: 18px;
 }
-#results td {
-    font-size: 14px;
-}
-div.status, div.buttons {
+.status, .buttons, .controls {
     text-align: center;
 }
-div.status {
+.status {
     margin-top: 40px;
 }
-div.buttons {
+.buttons {
     margin-top: 40px;
     margin-bottom: 20px;
 }
 #search-form {
     display: inline-block;
+}
+#search-scope {
+    display: inline-block;
+    width: 75px;
+    height: 45px;
 }
 #search-box {
     display: inline-block;

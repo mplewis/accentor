@@ -16,12 +16,16 @@
     </div>
     <div class="row">
         <div class="col-md-12 buttons">
+            <button class="btn btn-default btn-lg" onclick="toggleVolume();"><i class="icon-volume-up"></i></button>
             <button id="btn-pause" class="btn btn-default btn-lg" onclick="mpdPause();"><i class="icon-pause"></i></button>
             <button id="btn-play" class="btn btn-default btn-lg" onclick="mpdPlay();"><i class="icon-play"></i></button>
             <button class="btn btn-default btn-lg" onclick="mpdRemoveZero();"><i class="icon-fast-forward"></i></button>
             <form id="search-form" action="">
                 <input id="search-box" class="form-control input-lg" type="text" placeholder="Search">
             </form>
+            <div id="volume-container">
+                <input id="volume" class="knob" data-angleoffset="-125" data-linecap="round" data-anglearc="250" data-fgcolor="#428bca" value="0">
+            </div>
         </div>
     </div>
 </div>
@@ -66,6 +70,8 @@
 <span id="hidden-modal-trigger"></span>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/corelogic.js"></script>
 <script src="/js/jquery.simplemodal.js"></script>
 <script src="/js/modal-osx.js"></script>
+<script src="/js/jquery.knob.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.min.js"></script>
+<script src="/js/corelogic.js"></script>

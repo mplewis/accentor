@@ -86,6 +86,7 @@ function mpdRefreshStatus() {
   $.get('/status').done(function(data) {
     if (!data.error) {
       lastStatus = data.result;
+      $('#volume').val(lastStatus.volume).trigger('change');
       var pauseButton = $('#btn-pause');
       var playButton = $('#btn-play');
       if (lastStatus.state == 'play') {
@@ -189,3 +190,16 @@ $('#btn-clear').hover(function() {
 }, function() {
   $(this).removeClass('btn-danger');
 });
+
+$(".knob").knob({
+  release: function(val) {
+    console.log('Setting volume:', val);
+    $.post('/volume', {percent: val}).done(function(data) {
+      $('#volume').css('color', '#4c4').animate({color: '#428bca'}, 1000);
+    });
+  }
+});
+
+function toggleVolume() {
+  $('#volume-container').slideToggle();
+}

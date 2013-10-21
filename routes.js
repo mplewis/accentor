@@ -37,6 +37,13 @@ var appMap = {
       });
     }
   },
+  '/volume': {
+    post: function(req, res) {
+      client.sendCommand(cmd('setvol', [req.body.percent]), function(err, mpdRes) {
+        respHandlers.handleGeneralMpdResponse(err, mpdRes, res);
+      });
+    }
+  },
   '/play': {
     post: function(req, res) {
       client.sendCommand('play', function(err, mpdRes) {

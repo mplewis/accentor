@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/css/search.css">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 status">
+            <h1>Search Results for {{scope}} "{{query}}"</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-lg btn-primary">Return to Playlist</a>
+    </div>
+</div>
+<div class="row" style="margin-left: 30px; margin-right: 30px;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Time</th>
+                <th>Artist</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="results">
+            {{#each results}}
+            <tr>
+                {{#with result}}
+                <td>{{Title}}</td>
+                <td>{{TimeString}}</td>
+                <td>{{Artist}}</td>
+                <td>button.btn.btn-lg.btn-success</td>
+                {{/with}}
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-lg btn-primary">Return to Playlist</a>
+    </div>
+</div>
+
+<script src="/js/searchlogic.js"></script>

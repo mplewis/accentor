@@ -22,6 +22,9 @@
             <form id="search-form" action="">
                 <input id="search-box" class="form-control input-lg" type="text" placeholder="Search">
             </form>
+            <div id="volume-container">
+                <input id="volume" class="knob" data-angleoffset="-125" data-linecap="round" data-anglearc="250" data-fgcolor="#428bca" value="0">
+            </div>
         </div>
     </div>
 </div>
@@ -69,3 +72,7 @@
 <script src="/js/corelogic.js"></script>
 <script src="/js/jquery.simplemodal.js"></script>
 <script src="/js/modal-osx.js"></script>
+<script src="/js/jquery.knob.js"></script>
+<script>
+    $(".knob").knob();
+</script>

@@ -32,3 +32,6 @@ div.buttons {
     overflow: auto;
     max-height: 80%;
 }
+#volume-container {
+    margin-top: 20px;
+}

@@ -1,0 +1,11 @@
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+td {
+    vertical-align: middle !important;
+}
+#results td {
+    font-size: 18px;
+}

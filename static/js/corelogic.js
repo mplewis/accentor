@@ -193,6 +193,9 @@ $('#btn-clear').hover(function() {
 
 $(".knob").knob({
   release: function(val) {
-    $.post('/volume', {percent: val});
+    console.log('Setting volume:', val);
+    $.post('/volume', {percent: val}).done(function(data) {
+      $('#volume').css('color', '#4c4').animate({color: '#428bca'}, 1000);
+    });
   }
 });

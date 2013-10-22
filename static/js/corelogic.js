@@ -33,6 +33,11 @@ function bumpClicked() {
   $.post('/bump', {pos: pos});
 }
 
+function skipToClicked() {
+  var pos = $(this).parent().data('pos');
+  $.post('/clearnum', {num: pos});
+}
+
 function addClicked() {
   var file = $(this).parent().data('file');
   var loadingButton = '<button class="btn btn-sm" disabled><i class="icon-ellipsis-horizontal"></i></button>';
@@ -107,9 +112,13 @@ function mpdRefreshStatus() {
 }
 
 var nonePlaying = '...';
+var bumpBtnHtml = '<td class="contains-button"><button class="btn btn-info btn-md">Bump <i class="icon-level-up"></i></button></td>';
+var skipToBtnHtml = '<td class="contains-button"><button class="btn btn-primary btn-md">Skip To <i class="icon-fast-forward"></i></button></td>';
+var removeBtnHtml = '<td class="contains-button"><button class="btn btn-danger btn-md">Remove <i class="icon-trash"></i></button></td>';
 function mpdRefreshPlaylist() {
   var numPreRefreshRows = $('#tracks tr').length;
   $.get('/list').done(function(data) {
+    console.log(data);
     if (!data.error) {
       var playlistItems = data.result;
       var numPlaylistItems = playlistItems.length;
@@ -124,13 +133,16 @@ function mpdRefreshPlaylist() {
         } else {
           var row = $('<tr>');
           row.data('file', item.file).data('pos', playlistPos);
-          var bumpBtn = $('<td class="contains-button"><button class="btn btn-info btn-md">Bump <i class="icon-level-up"></i></button></td>');
+          var bumpBtn = $(bumpBtnHtml);
           bumpBtn.click(bumpClicked);
           row.append(bumpBtn);
+          var skipToBtn = $(skipToBtnHtml);
+          skipToBtn.click(skipToClicked);
+          row.append(skipToBtn);
           row.append($('<td>').text(item.Title));
           row.append($('<td>').text(secondsToMMSS(item.Time)));
           row.append($('<td>').text(item.Artist));
-          var removeBtn = $('<td class="contains-button"><button class="btn btn-danger btn-md">Remove <i class="icon-trash"></i></button></td>');
+          var removeBtn = $(removeBtnHtml);
           row.append(removeBtn);
           removeBtn.click(removeClicked);
           $('#tracks').append(row);

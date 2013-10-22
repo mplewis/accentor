@@ -9,6 +9,7 @@ function continueSetup() {
   var client = mpdClient.client;
   var mpd = require('mpd');
   var cmd = mpd.cmd;
+  var broadcastControl = require('./broadcastControl.js');
 
   // Turn consume on by default
   client.sendCommand(cmd('consume', [1]), function(err, mpdRes) {
@@ -46,12 +47,16 @@ function continueSetup() {
   // sockets
   var io = require('socket.io').listen(server);
   client.on('system-player', function() {
-    console.log('update_player');
-    io.sockets.emit('message', 'update_player');
+    if (broadcastControl.broadcastPlayerUpdates) {
+      console.log('update_player');
+      io.sockets.emit('message', 'update_player');      
+    }
   });
   client.on('system-playlist', function() {
-    console.log('update_playlist');
-    io.sockets.emit('message', 'update_playlist');
+    if (broadcastControl.broadcastPlaylistUpdates) {
+      console.log('update_playlist');
+      io.sockets.emit('message', 'update_playlist');
+    }
   });
 }
 

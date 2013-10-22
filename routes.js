@@ -5,6 +5,7 @@ var client = mpdClient.client;
 var async = require('async');
 var config = require('./config');
 var respHandlers = require('./respHandlers.js');
+var broadcastControl = require('./broadcastControl.js');
 
 var appMapFuncBuilder = function(app) {
   return function(a, route) {
@@ -90,6 +91,19 @@ var appMap = {
     post: function(req, res) {
       client.sendCommand('clear', function(err, mpdRes) {
         respHandlers.handleGeneralMpdResponse(err, mpdRes, res);
+      });
+    }
+  },
+  '/clearnum': {
+    post: function(req, res) {
+      broadcastControl.broadcastPlaylistUpdates = false;
+      async.times(req.body.num, function(num, done) {
+        client.sendCommand(cmd('delete', [0]), function(err, mpdRes) {
+          done(err, mpdRes);
+        });
+      }, function(err, mpdResArray) {
+        broadcastControl.broadcastPlaylistUpdates = true;
+        respHandlers.handleGeneralMpdResponse(err, mpdResArray, res);
       });
     }
   },

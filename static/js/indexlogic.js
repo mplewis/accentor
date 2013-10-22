@@ -113,7 +113,7 @@ function mpdRefreshStatus() {
 }
 
 var nonePlaying = '...';
-var bumpBtnHtml = '<td class="contains-button"><button class="btn btn-info btn-md">Bump <i class="icon-level-up"></i></button></td>';
+var bumpBtnHtml = '<td class="contains-button"><button class="btn btn-info btn-md">Play Next <i class="icon-level-up"></i></button></td>';
 var skipToBtnHtml = '<td class="contains-button"><button class="btn btn-primary btn-md">Skip To <i class="icon-fast-forward"></i></button></td>';
 var removeBtnHtml = '<td class="contains-button"><button class="btn btn-danger btn-md">Remove <i class="icon-trash"></i></button></td>';
 function mpdRefreshPlaylist() {
